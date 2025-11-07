@@ -18,6 +18,7 @@
 - name: Create an issue in the project..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects/{{ gl_project_id }}/issues?sudo={{ (gl_existing_users.json
+    validate_certs: "{{ gitlab_validate_cert }}"
       | selectattr('username', 'equalto', issue.impersonate_username))[0].id }}"
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

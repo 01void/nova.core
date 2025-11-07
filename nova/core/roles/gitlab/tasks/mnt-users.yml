@@ -2,6 +2,7 @@
 - name: Get existing GitLab users (first page and pagination headers)
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users?per_page=100&page=1"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -17,6 +18,7 @@
 - name: Fetch additional pages of GitLab users
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users?per_page=100&page={{ page_num }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

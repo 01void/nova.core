@@ -3,6 +3,7 @@
 - name: Look up namespace (group) id..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups?name={{ group.name }}&with_custom_attributes=true"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       Content-Type: application/json
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -11,6 +12,7 @@
 - name: Get existing variables in current group - {{ group.name }}...
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ (gitlab_group.json | selectattr('name', 'equalto', group.name))[0].id }}/variables"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     body_format: json
     headers:
@@ -21,6 +23,7 @@
 - name: Add new variables to group..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ (gitlab_group.json | selectattr('name', 'equalto', group.name))[0].id }}/variables"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     body:
@@ -42,6 +45,7 @@
 - name: Update variables that already present for group - {{ group.name }}...
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ (gitlab_group.json | selectattr('name', 'equalto', group.name))[0].id }}/variables/{{ variable.key }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: PUT
     body_format: json
     body:

@@ -20,6 +20,7 @@
 - name: Get existing variables in current project..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects/{{ gl_project_id }}/variables"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -31,6 +32,7 @@
 - name: Add new variables to project..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects/{{ gl_project_id }}/variables"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -54,6 +56,7 @@
 - name: Update variables that are already present..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects/{{ gl_project_id }}/variables"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: PUT
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

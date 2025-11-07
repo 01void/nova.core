@@ -2,6 +2,7 @@
 - name: Get existing GitLab namespaces (groups)..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -12,6 +13,7 @@
 - name: Add new group if not already there..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     body:
@@ -26,6 +28,7 @@
 - name: Get existing group id..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ group.name }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     body_format: json
     headers:
@@ -37,6 +40,7 @@
 - name: Modify existing group - {{ group.name }}..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ gitlab_group.json.id }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: PUT
     body_format: json
     body:

@@ -9,6 +9,7 @@
 - name: "CREATE user: '{{ user.username }}' (if not found in GitLab)"
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     body:
@@ -28,6 +29,7 @@
 - name: "MODIFY user: '{{ user.username }}' (if already exists in GitLab)"
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users/{{ existing_gitlab_user_details.id }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: PUT
     body_format: json
     body:

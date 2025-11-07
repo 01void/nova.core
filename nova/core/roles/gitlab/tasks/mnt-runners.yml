@@ -2,6 +2,7 @@
 - name: Get info on all runners in gitlab..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/runners/all"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
   register: gl_existing_runners
@@ -9,6 +10,7 @@
 - name: Remove all dangling runners with status "never contacted"..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/runners/{{ item.id }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: DELETE
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -18,6 +20,7 @@
 - name: Get info on all runners in gitlab after cleanup..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/runners/all"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
   register: gl_existing_runners

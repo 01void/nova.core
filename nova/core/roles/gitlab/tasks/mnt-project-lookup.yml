@@ -2,6 +2,7 @@
 - name: Get existing GitLab projects, first page..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects?per_page=100&page=1"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       Content-Type: application/json
@@ -19,6 +20,7 @@
 - name: Fetch additional pages of GitLab projects..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects?per_page=100&page={{ page_num }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

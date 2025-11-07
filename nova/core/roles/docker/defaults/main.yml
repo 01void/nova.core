@@ -12,6 +12,11 @@ docker_enable_iptables: true
 docker_bridge_ipv6_range: fd69::/64
 docker_userland_proxy: true
 docker_log_to_journald: false
+# Allows to change default Docker network for bridge0 in daemon.json
+docker_change_default_network: false
+docker_default_addr_pool: # Eg. 192.168.255.0/24
+docker_default_addr_pool_size: # Eg. 24
+docker_default_bridge0_addr_pool: # Eg. 192.168.255.1/28
 
 # List of mirrors to be added to the Docker daemon config. The mirror must be a complete URL including a protocol (http:// or https://)
 docker_registry_mirrors: []

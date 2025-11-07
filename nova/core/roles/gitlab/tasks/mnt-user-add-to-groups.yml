@@ -10,6 +10,7 @@
 - name: Look up existing GitLab groups..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -21,6 +22,7 @@
 - name: Look up user memberships..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users/{{ current_gitlab_user.id }}/memberships"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       Content-Type: application/json
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -30,6 +32,7 @@
 - name: Add user to group..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ (gl_existing_namespaces.json | selectattr('name', 'equalto', group.name))[0].id }}/members"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     headers:

@@ -2,6 +2,7 @@
 - name: Look up group id..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups?name={{ group.name }}&with_custom_attributes=true"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       Content-Type: application/json
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
@@ -10,6 +11,7 @@
 - name: Get existing deploy_tokens in current group..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ gitlab_group.json[0].id }}/deploy_tokens"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     body_format: json
     headers:
@@ -20,6 +22,7 @@
 - name: Create deploy tokens that are not set..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups/{{ (gitlab_group.json | selectattr('name', 'equalto', group.name))[0].id }}/deploy_tokens"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     body:
