@@ -62,6 +62,15 @@
     - docker-ce-cli
     - docker-ce
 
+- name: "When docker_change_default_network is true you have to fill variables ..."
+  ansible.builtin.assert:
+    that:
+      - docker_default_addr_pool is not none
+      - docker_default_addr_pool_size is not none
+      - docker_default_bridge0_addr_pool is not none
+    fail_msg: 'Fill variables: docker_default_addr_pool, docker_default_addr_pool_size and docker_default_bridge0_addr_pool'
+  when: docker_change_default_network | bool
+
 - name: Adding Docker daemon config...
   ansible.builtin.template:
     src: "{{ docker_daemon_template }}"

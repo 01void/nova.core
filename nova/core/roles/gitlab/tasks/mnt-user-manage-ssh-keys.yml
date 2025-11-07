@@ -10,6 +10,7 @@
 - name: Get existing ssh keys for user
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users/{{ current_gitlab_user.id }}/keys"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     body_format: json
     headers:
@@ -21,6 +22,7 @@
 # - name: Cleanup existing ssh keys for user..
 #   ansible.builtin.uri:
 #     url: "{{ gitlab_url_api }}/users/{{ current_gitlab_user.id }}/keys/{{ item.id }}"
+#    validate_certs: "{{ gitlab_validate_cert }}"
 #     method: DELETE
 #     body_format: json
 #     headers:
@@ -37,6 +39,7 @@
 - name: Add ssh keys to user..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/users/{{ current_gitlab_user.id }}/keys"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     body_format: json
     body:

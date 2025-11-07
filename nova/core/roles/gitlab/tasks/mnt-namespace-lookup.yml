@@ -2,6 +2,7 @@
 - name: Look up existing GitLab groups(namespaces)..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/groups"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

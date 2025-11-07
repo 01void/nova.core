@@ -2,6 +2,7 @@
 - name: Checking if root api token exists...
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/license"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
     method: GET
@@ -38,6 +39,7 @@
 - name: Waiting until root api token is created...
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/license"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"
     method: GET

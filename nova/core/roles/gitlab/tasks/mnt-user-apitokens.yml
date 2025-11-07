@@ -10,6 +10,7 @@
 - name: Look up user's personal access tokens..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/personal_access_tokens?user_id={{ current_gitlab_user.id }}"
+    validate_certs: "{{ gitlab_validate_cert }}"
     headers:
       Content-Type: application/json
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

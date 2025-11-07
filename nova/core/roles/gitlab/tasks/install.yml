@@ -56,6 +56,7 @@
 - name: Waiting until Gitlab is up and running...
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/projects"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: GET
     status_code: 200
   register: gitlab_uri

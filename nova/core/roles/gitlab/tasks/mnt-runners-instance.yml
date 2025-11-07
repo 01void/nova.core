@@ -2,6 +2,7 @@
 - name: Create an instance runner {{ runner.meta_name | default('') }}..
   ansible.builtin.uri:
     url: "{{ gitlab_url_api }}/user/runners"
+    validate_certs: "{{ gitlab_validate_cert }}"
     method: POST
     headers:
       PRIVATE-TOKEN: "{{ gitlab_root_personal_token }}"

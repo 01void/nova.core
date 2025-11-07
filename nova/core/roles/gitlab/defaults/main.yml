@@ -61,6 +61,7 @@ gitlab_docker_network: local-network
 gitlab_container_name: gitlab
 gitlab_proxy_container_name: {}
 gitlab_config_folder: /srv/gitlab
+gitlab_validate_cert: true
 
 ### General application settings
 gitlab_general_settings_gravatar_enabled: false
