@@ -92,3 +92,37 @@ gitlab_rails['ldap_servers'] = {
     'sync_ssh_keys' => false
   }
 }
+
+### gitlab OmniAuth with OpenID https://docs.gitlab.com/integration/omniauth/
+gitlab_rails['omniauth_enabled'] = {{ gitlab_omniauth_enabled | string | lower }}
+gitlab_rails['omniauth_allow_single_sign_on'] = ['openid_connect']
+gitlab_rails['omniauth_auto_link_user'] = ['openid_connect']
+gitlab_rails['omniauth_auto_link_openid_connect_user'] = true
+gitlab_rails['omniauth_providers'] = [
+  {
+    "name" => "openid_connect",
+    "label" => '{{ gitlab_openid_label }}',
+    "args" => {
+      "name" => "openid_connect",
+      "scope" => ["openid", "profile", "email"],
+      "response_type" => "code",
+      "issuer" => '{{ gitlab_openid_issuer }}',
+      "client_auth_method" => "query",
+      "uid_field" => "uid",
+      "discovery" => true,
+      "client_options" => {
+        "identifier" => '{{ gitlab_openid_identifier }}',
+        "secret" => '{{ gitlab_openid_secret }}',
+        "redirect_uri" => '{{ gitlab_openid_redirect_uri }}'
+      },
+    {% if gitlab_openid_keycloak_self_signed_cert is sameas true %}
+    http_options: {
+      ssl: {
+        ca_file: '{{ gitlab_openid_keycloak_self_signed_cert_path }}',
+        verify: false
+      }
+    }
+    {% endif %}
+    }
+  }
+]
