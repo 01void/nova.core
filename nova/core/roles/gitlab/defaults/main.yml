@@ -72,3 +72,13 @@ gitlab_general_settings_max_artifacts_size: 1000
 gitlab_general_settings_product_usage_data_enabled: false
 gitlab_general_settings_version_check_enabled: false
 gitlab_general_settings_usage_ping_enabled: false
+
+# Gitlab OpenID with Keycloak
+gitlab_omniauth_enabled: false
+gitlab_openid_issuer: https://my.keycloak.local/realms/master
+gitlab_openid_label: Keycloak SSO
+gitlab_openid_identifier: gitlab-demo # Name of the client in Keycloak
+gitlab_openid_secret: Some_secret_from_Keycloak # Secret associated with the client in Keycloak
+gitlab_openid_redirect_uri: "{{ gitlab_url }}/users/auth/openid_connect/callback"
+gitlab_openid_keycloak_self_signed_cert: false
+gitlab_openid_keycloak_self_signed_cert_path: /usr/local/share/ca-certificates/my.keycloak.local.crt
