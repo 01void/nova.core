@@ -9,6 +9,12 @@
   "features": {
     "buildkit": {{ docker_buildkit | lower }}
   },
+  {% if docker_change_default_network %}
+  "default-address-pools": [
+    { "base": "{{ docker_default_addr_pool }}", "size": {{ docker_default_addr_pool_size }} }
+  ],
+  "bip": "{{ docker_default_bridge0_addr_pool }}",
+  {% endif %}
   "ipv6": {{ docker_enable_ipv6 | lower }},
   "ip6tables": {{ docker_enable_ip6tables | lower }},
   "iptables": {{ docker_enable_iptables | lower }},
